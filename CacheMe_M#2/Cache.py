@@ -144,13 +144,9 @@ class Cache:
         new_block = True
         empty = '0x00000000'
         for line in file:
-            # [*NOTE] - These expressions seem to santize lines one and two but hard to work with as is:
-            # info = re.match(r'^.+\((\d{2})\).\s(.{8}).+$', line)
-            # read_write = re.match(r'^.+:\s(\w{8}).*:\s(\w{8}).*$', line)
             if line == '\n':
                 new_block = True
                 continue
-            # [*NOTE] - These tokens split up the lines in to groups but fails to santize the data:
             tokens = line.split() 
    
             # Get Length and Address from first line:
@@ -159,24 +155,16 @@ class Cache:
                 address = str(tokens[2])
                 new_block = False
 
-		# Calculate Address:
+	    	# Calculate Address:
                 address_space = self.calAdd(address, int(tagSize), int(indexSize), int(self.offsetSize))
                 self.inAdd(address_space, bytes_read)
                 self.total_cycles += 2
                 self.total_instructions += 1
             
+            # Get Length and Address from next line:
             else:
                 writeAdd = hex(int(tokens[1], 16))
                 readAdd = hex(int(tokens[4], 16))
-		# if info:
-                # address = '0x' + info.group(2)
-                # length = int(info.group(1))
-                # cache_list.append(address + ',' + str(length))
-            	# if read_write:
-                # write_address = '0x' + str(read_write.group(1))
-                # read_address = '0x' + str(read_write.group(2))
-            	# writeAdd = '0x' + str(read_write.group(1))
-		# [*NOTE] - Orignially these are checking with 
                 if (int(writeAdd,16) != 0):
                     address_space = self.calAdd(str(tokens[1]), int(tagSize), int(indexSize), int(self.offsetSize))
                     self.inAdd(address_space, 4)
@@ -184,9 +172,7 @@ class Cache:
                 if (int(readAdd, 16) != 0):
                     address_space = self.calAdd(str(tokens[4]), int(tagSize), int(indexSize), int(self.offsetSize))
                     self.inAdd(address_space, 4)
-                    # Add to CPI
                     self.total_cycles += 2
-                        
         self.unusedKB = ((self.totalBlocks-self.compMisses) * (self.blockSize+self.overheadMemory) / 1024 )
         self.waste = (self.cost/self.cacheSize) * self.unusedKB
         self.setRates()
