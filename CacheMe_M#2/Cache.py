@@ -31,7 +31,6 @@ class Cache:
         self.missRate = 0;
         self.total_cycles = 0
         self.total_instructions = 0
-        self.cacheMisses = 0
         self.unusedKB = ( (self.totalBlocks-self.compMisses) * (self.blockSize+self.overheadMemory) / 1024 )
         self.waste = (self.cost/self.cacheSize) * self.unusedKB
         self.cachAccesses = 0
@@ -59,6 +58,7 @@ class Cache:
     # Add to Address Space:
     def inAdd(self, address_space, bytesRead):
         self.cachAccesses += 1
+        emptyBlock = False
         indexList = self.indexList
         blockSize = self.blockSize
         cacheHit = False
@@ -82,8 +82,7 @@ class Cache:
             
             # Check if Tags Match:
             if (cacheHit == False):
-                emptyBlock = False
-                self.cacheMisses += 1
+                #self.cacheMisses += 1
                 self.total_cycles += (3 * int(blockSize / 4))
                 # Check for usable block, replace:
                 for blockCache in indexList[address_space['index']]:
@@ -91,8 +90,6 @@ class Cache:
                         self.compMisses += 1
                         blockCache.valid = 1
                         emptyBlock = True
-                        break
-
                 # Check Replacement Policy:
                 if emptyBlock == False:
                     if(self.r_policy == "RR"):
@@ -114,13 +111,15 @@ class Cache:
                     elif(self.r_policy == "RND"):
                         randomize = random.randrange(0,self.associativity)
                         indexList[indexSelected][randomize].tag = address_space['tag']
-
+        if cacheHit:
+          self.cacheHits += 1
+        else:
+          self.cacheMisses +=1  
     
     def setRates(self):
-        self.missRate = float(self.cache_miss_count/self.total_cycles)
-        self.hitRate = (1 - self.missRate) * 100
-        self.cacheHits = self.cachAccesses - self.cache_miss_count
-
+        self.missRate = float(self.cacheMisses/self.cachAccesses) * 100
+        self.hitRate = (100 - self.missRate)
+        
     # Cache Simulation to be called with in Sim.py:
     def cacheMe(self):
         tagSize = self.tagSize
@@ -184,9 +183,9 @@ class Cache:
                     self.total_cycles += 2
                 if (int(readAdd, 16) != 0):
                     address_space = self.calAdd(str(tokens[4]), int(tagSize), int(indexSize), int(self.offsetSize))
-	            self.inAdd(address_space, 4)
-	            # Add to CPI
-	            self.total_cycles += 2
+                    self.inAdd(address_space, 4)
+                    # Add to CPI
+                    self.total_cycles += 2
                         
         self.unusedKB = ((self.totalBlocks-self.compMisses) * (self.blockSize+self.overheadMemory) / 1024 )
         self.setRates()
