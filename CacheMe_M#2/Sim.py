@@ -11,11 +11,11 @@ if len(sys.argv)!=11:
 
 # Start Parsing:
 parser = argparse.ArgumentParser()
-parser.add_argument('-f', type=str, action='store', dest="Trace_File")
-parser.add_argument('-s', type=int, action='store', dest="Cache_Size")
-parser.add_argument('-b', type=int, action='store', dest="Block_Size")
-parser.add_argument('-a', type=int, action='store', dest="Associativity")
-parser.add_argument('-r', type=str, action='store', dest="R_Policy")
+parser.add_argument('-f', type=str, action='store', help="Trace_File")
+parser.add_argument('-s', type=int, action='store', help="Cache_Size")
+parser.add_argument('-b', type=int, action='store', help="Block_Size")
+parser.add_argument('-a', type=int, action='store', help="Associativity")
+parser.add_argument('-r', type=str, action='store', help="R_Policy")
 
 # Save Arguments:
 results = parser.parse_args()
@@ -97,6 +97,6 @@ print("")
 print("")
 
 # Display Cache Results:
-cache = Cache(traceFile, rows, blockSize, tagSize, associativity, indexSize, offsetSize, r_policy)
+cache = Cache(cacheSize, blockSize, associativity, r_policy, traceFile.name)
 cache.cacheMe()
-cache.outputCache()
+

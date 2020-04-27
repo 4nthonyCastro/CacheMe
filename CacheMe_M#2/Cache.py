@@ -180,13 +180,13 @@ class Cache:
 		# [*NOTE] - Orignially these are checking with 
                 if (int(writeAdd,16) != 0):
                     address_space = self.calAdd(str(tokens[1]), int(tagSize), int(indexSize), int(self.offsetSize))
-			        self.inAdd(address_space, 4)
-			        self.total_cycles += 2
+                    self.inAdd(address_space, 4)
+                    self.total_cycles += 2
                 if (int(readAdd, 16) != 0):
                     address_space = self.calAdd(str(tokens[4]), int(tagSize), int(indexSize), int(self.offsetSize))
-			        self.inAdd(address_space, 4)
-			        # Add to CPI
-			        self.total_cycles += 2
+	            self.inAdd(address_space, 4)
+	            # Add to CPI
+	            self.total_cycles += 2
                         
         self.unusedKB = ((self.totalBlocks-self.compMisses) * (self.blockSize+self.overheadMemory) / 1024 )
         self.setRates()
