@@ -114,14 +114,12 @@ class Cache:
                     elif(self.r_policy == "RND"):
                         randomize = random.randrange(0,self.associativity)
                         indexList[indexSelected][randomize].tag = address_space['tag']
-        if cacheHit:
-            self.cacheHits += 1
-        else:
-            self.cacheMisses+= 1
+
     
     def setRates(self):
-        self.hitRate = float((self.cacheHits / self.cachAccesses)) * 100
-        self.missRate = 100 - self.hitRate
+        self.missRate = float(self.cache_miss_count/self.total_cycles)
+        self.hitRate = (1 - self.missRate) * 100
+        self.cacheHits = self.cachAccesses - self.cache_miss_count
 
     # Cache Simulation to be called with in Sim.py:
     def cacheMe(self):
@@ -131,17 +129,17 @@ class Cache:
         cacheList = []  
 
         # Represents tables of cache considering Cache Assiciativity: 
-        for index in range(int(self.rows)):i
+        for index in range(int(self.rows)):
             blockList = []
             for block in range(self.associativity):
                 blockList.append(Block(0, "0", 0))
-            self.indexList.append(block_list)
+            self.indexList.append(blockList)
 
         # Validate Existance and Open Trace File for Reading:
         file = open(traceFile, 'r')
-	if not file:
-		print("ERROR: '%s' FAILED TO READ FILE", file)
-		sys.exit(1)
+        if not file:
+            print("ERROR: '%s' FAILED TO READ FILE", file)
+            exit(1)
 
         # Start
         new_block = True
