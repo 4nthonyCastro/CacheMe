@@ -188,6 +188,7 @@ class Cache:
                     self.total_cycles += 2
                         
         self.unusedKB = ((self.totalBlocks-self.compMisses) * (self.blockSize+self.overheadMemory) / 1024 )
+        self.waste = (self.cost/self.cacheSize) * self.unusedKB
         self.setRates()
 
 # Class Block:

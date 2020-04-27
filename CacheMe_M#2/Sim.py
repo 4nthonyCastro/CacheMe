@@ -92,6 +92,6 @@ print("Unused Cache Space: \t\t{0:.2f} KB ".format(myCache.unusedKB) + "/ {0:.2f
 print("Waste: \t\t${0:.2f}".format(myCache.waste) )
 block1 = 69
 block2 = 9000
-print("Unused Cache Blocks: \t\t" + str(block1) + " / " + str(block2) )
+print("Unused Cache Blocks: \t\t" + str(myCache.totalBlocks * (myCache.unusedKB/myCache.memKB)) + " / " + str(myCache.totalBlocks) )
 print("")
 
