@@ -88,10 +88,8 @@ print("")
 print("Hit Rate:\t\t{0:.2f}".format(myCache.hitRate) + "%") #cache hit/cache access move two decimal right
 print("Miss Rate: \t\t{0:.2f}".format(myCache.missRate) + "%")  #cache miss/cache access move two dec right
 print("CPI: \t\t{0:.2f} Cycles/Instruction".format(myCache.total_cycles/myCache.total_instructions))
-print("Unused Cache Space: \t\t{0:.2f} KB ".format(myCache.unusedKB) + "/ {0:.2f} KB".format(myCache.memKB) + " = {0:.2f}%".format(myCache.unusedKB/myCache.memKB) )
+print("Unused Cache Space: \t\t{0:.2f} KB ".format(myCache.unusedKB) + "/ {0:.2f} KB".format(myCache.memKB) + " = {0:.2f}%".format(myCache.unusedKB*100/myCache.memKB) )
 print("Waste: \t\t${0:.2f}".format(myCache.waste) )
-block1 = 69
-block2 = 9000
 print("Unused Cache Blocks: \t\t" + str(myCache.totalBlocks * (myCache.unusedKB/myCache.memKB)) + " / " + str(myCache.totalBlocks) )
 print("")
 
