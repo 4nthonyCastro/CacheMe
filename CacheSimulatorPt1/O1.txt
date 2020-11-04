@@ -1,0 +1,43 @@
+Address: 0x7c81eb33: (0001)
+Address: 0x7c81eb34: (0001)
+Address: 0x7c81eb35: (0003)
+Address: 0x78158e69: (0001)
+Address: 0x78158e6a: (0003)
+Address: 0x01763891: (0001)
+Address: 0x01763892: (0001)
+Address: 0x01763893: (0001)
+Address: 0x01763894: (0001)
+Address: 0x01763895: (0001)
+Address: 0x01763896: (0001)
+Address: 0x01763897: (0001)
+Address: 0x01763898: (0001)
+Address: 0x01763899: (0001)
+Address: 0x0176389a: (0001)
+Address: 0x0176389b: (0001)
+Address: 0x0176389c: (0001)
+Address: 0x0176389d: (0001)
+Address: 0x0176389e: (0001)
+Address: 0x0176389f: (0001)
+Address: 0x017638a0: (0005)
+Address: 0x017638a5: (0001)
+
+Cache Simulator - CS 3853 - Team #18
+
+Trace File:  Trace1.trc
+
+***** Cache Input Parameters *****
+
+Cache Size:  4096 KB
+Block Size:  8 bytes
+Associativity:  1
+R-Policy: Round Robin
+
+***** Cache Calculated Values ***** 
+
+Total #Blocks: 512 KB (2^19)
+Tag Size: 10 bits
+Index Size: 19 bits
+Total # Rows: 524288
+Overhead Size: 720,896 bytes
+Implementation Memory Size: 4,915,200 bytes
+Cost: $240.00
